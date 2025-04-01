@@ -62,10 +62,10 @@ class Settings(PluginSettings):
         return {
             "label": "Codec Selection Mode",
             "input_type": "select",
-            "select_options": {
-                "all": "Convert all non-AC3 audio codecs",
-                "selected": "Convert only selected codecs",
-            },
+            "select_options": [
+                ("all", "Convert all non-AC3 audio codecs"),
+                ("selected", "Convert only selected codecs"),
+            ],
         }
 
     def __set_selected_codecs_form_settings(self):
