@@ -39,6 +39,8 @@ class Settings(PluginSettings):
         "main_options":          "",
         "advanced_options":      "",
         "custom_options":        "",
+        "codec_selection_mode":  "all",
+        "selected_codecs":       ["dts", "dca", "truehd", "mp3", "mp2", "aac"],
     }
 
     def __init__(self, *args, **kwargs):
@@ -51,7 +53,43 @@ class Settings(PluginSettings):
             "main_options":          self.__set_main_options_form_settings(),
             "advanced_options":      self.__set_advanced_options_form_settings(),
             "custom_options":        self.__set_custom_options_form_settings(),
+            "codec_selection_mode":  self.__set_codec_selection_mode_form_settings(),
+            "selected_codecs":       self.__set_selected_codecs_form_settings(),
         }
+
+
+    def __set_codec_selection_mode_form_settings(self):
+        return {
+            "label": "Codec Selection Mode",
+            "input_type": "select",
+            "select_options": {
+                "all": "Convert all non-AC3 audio codecs",
+                "selected": "Convert only selected codecs",
+            },
+        }
+
+    def __set_selected_codecs_form_settings(self):
+        values = {
+            "label": "Select codecs to convert to AC3",
+            "input_type": "checkbox",
+            "checkbox_options": [
+                ("dts", "DTS"),
+                ("dca", "DCA (DTS)"),
+                ("truehd", "TrueHD"),
+                ("eac3", "EAC3"),
+                ("mp3", "MP3"),
+                ("mp2", "MP2"),
+                ("aac", "AAC"),
+                ("opus", "Opus"),
+                ("flac", "FLAC"),
+                ("vorbis", "Vorbis"),
+                ("pcm_s16le", "PCM"),
+                ("other", "Other codecs"),
+            ],
+        }
+        if self.get_setting('codec_selection_mode') != 'selected':
+            values["display"] = 'hidden'
+        return values
 
     def __set_max_muxing_queue_size_form_settings(self):
         values = {
