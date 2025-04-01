@@ -63,8 +63,14 @@ class Settings(PluginSettings):
             "label": "Codec Selection Mode",
             "input_type": "select",
             "select_options": [
-                ("all", "Convert all non-AC3 audio codecs"),
-                ("selected", "Convert only selected codecs"),
+                {
+                    "value": "all",
+                    "label": "Convert all non-AC3 audio codecs"
+                },
+                {
+                    "value": "selected",
+                    "label": "Convert only selected codecs"
+                }
             ],
         }
 
